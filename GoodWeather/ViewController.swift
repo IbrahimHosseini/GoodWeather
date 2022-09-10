@@ -20,6 +20,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cityTextFeildEvent()
+    }
+    
+    fileprivate func cityTextFeildEvent() {
         cityNameTextFeild.rx.controlEvent(.editingDidEndOnExit)
             .map { self.cityNameTextFeild.text }
             .subscribe(onNext: { city in
@@ -33,7 +37,7 @@ class ViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
-    func displayWeather(_ weather: Weather?) {
+    private func displayWeather(_ weather: Weather?) {
         if let weather = weather {
             tempretureLabel.text = "\(weather.temp) ℉"
             humidityLabel.text = "\(weather.humidity) 💦"
@@ -43,7 +47,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func fetchWeather(by city : String) {
+    private func fetchWeather(by city : String) {
         guard let encodedCity = city.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
               let url = URL.urlForWeatherAPI(city: encodedCity)
         else { return  }
