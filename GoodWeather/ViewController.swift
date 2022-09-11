@@ -61,6 +61,7 @@ class ViewController: UIViewController {
         */
         
         let search = URLRequest.load(resource: resource)
+            .retry(3)
             .observe(on: MainScheduler.instance)
             .catch { error in
                 
